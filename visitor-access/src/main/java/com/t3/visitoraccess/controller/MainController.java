@@ -1,36 +1,42 @@
 package com.t3.visitoraccess.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.t3.visitoraccess.entity.SecurityUser;
 import com.t3.visitoraccess.entity.User;
+import com.t3.visitoraccess.service.UserService;
 
-@RestController
+@Controller
 public class MainController {
 
-    @GetMapping("/")
+    @Autowired
+    private UserService userService;
+
+    @GetMapping({"/", "/index"})
     public String index(){
-        return "<h1> Bem Vindo </h1>";
+        return "index";
+    }
+
+    @GetMapping("/register")
+    public String register(){
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String createUser(User user){
+        userService.createUser(user);
+        return "redirect:/";
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/user")
-    public String user() {
-        return "<h1> Tela Somente Para Usuarios </h1>";
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/admin")
-    public String admin() {
-        return "<h1> Tela Somente Para Administradores </h1>";
-    }
-
-    @GetMapping("info")
-    SecurityUser info(@AuthenticationPrincipal SecurityUser principal){
-        return principal;
+    public String userPage(){
+        return "user";
     }
     
 }
