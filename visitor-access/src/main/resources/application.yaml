@@ -4,6 +4,8 @@
 # spring.datasource.driver-class-name=org.postgresql.Driver
 # spring.jpa.hibernate.ddl-auto=update
 
+# É necessario respeitar a hierarquia atraves da indentação
+
 spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/visitor_api
