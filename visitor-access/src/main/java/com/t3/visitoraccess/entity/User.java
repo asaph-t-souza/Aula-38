@@ -40,8 +40,9 @@ public class User {
         this.roles = roles;
     }
 
-    public void addVisitor(Visitor newVisitor) {
+    public void addNewVisitor(Visitor newVisitor) {
         newVisitor.setResident(this);
+        myVisitors.add(newVisitor);
     }
 
 }
